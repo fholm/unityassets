@@ -1,0 +1,4 @@
+All files in Lidgren/
+ - License: MIT
+ - Author: Michael Lidgren
+ - URL: http://code.google.com/p/lidgren-network-gen3/

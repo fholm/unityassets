@@ -1,0 +1,274 @@
+fileFormatVersion: 2
+guid: 439991328051fa043842d230a8e43769
+ModelImporter:
+  fileIDToRecycleName:
+    4300000: BaseHuman
+    4300002: Axe
+    4300004: Shield
+    7400000: Take 001 //// Viking@Jump
+    7400002: Take 001 //// Character001
+    7400004: Take 001 //// CATRigHub001
+    7400006: Take 001 //// CATRigLLeg1
+    7400008: Take 001 //// CATRigLLeg2
+    7400010: Take 001 //// CATRigLLegAnkle
+    7400012: Take 001 //// CATRigRLeg1
+    7400014: Take 001 //// CATRigRLeg2
+    7400016: Take 001 //// CATRigRLegAnkle
+    7400018: Take 001 //// CATRigSpineCATRigSpine1
+    7400020: Take 001 //// CATRigSpine2
+    7400022: Take 001 //// CATRigHub002
+    7400024: Take 001 //// CATRigSpine
+    7400026: Take 001 //// CATRigHub003
+    7400028: Take 001 //// CATRigLArmCollarbone
+    7400030: Take 001 //// CATRigLArm1
+    7400032: Take 001 //// CATRigLArm2
+    7400034: Take 001 //// CATRigLArmPalm
+    7400036: Take 001 //// CATRigRArmCollarbone
+    7400038: Take 001 //// CATRigRArm1
+    7400040: Take 001 //// CATRigRArm2
+    7400042: Take 001 //// CATRigRArmPalm
+    7400044: Take 001 //// Shield
+    7400046: Take 001 //// CATRigLLegPlatform
+    7400048: Take 001 //// CATRigRLegPlatform
+    100100000: DataTemplate __Singleton__
+  serializedVersion: 10
+  materials:
+    importMaterials: 0
+    materialName: 0
+    materialSearch: 1
+  animations:
+    generateAnimations: 3
+    bakeSimulation: 0
+    splitAnimations: 0
+    animationCompression: 1
+    animationRotationError: .5
+    animationPositionError: .5
+    animationScaleError: .5
+    animationWrapMode: 1
+    clipAnimations: []
+  meshes:
+    lODScreenPercentages: []
+    globalScale: .00999999978
+    meshCompression: 0
+    addColliders: 0
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMesh: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+  tangentSpace:
+    normalSmoothAngle: 60
+    splitTangentsAcrossUV: 1
+    normalImportMode: 0
+    tangentImportMode: 1
+  textMetaNamesToFileIDs:
+    //RootNode:
+      data:
+        first: 1
+        second: a4860100
+      data:
+        first: 4
+        second: 841a0600
+      data:
+        first: 111
+        second: 605fa900
+    Axe:
+      data:
+        first: 1
+        second: b0860100
+      data:
+        first: 4
+        second: 901a0600
+      data:
+        first: 23
+        second: 62182300
+      data:
+        first: 33
+        second: a25a3200
+    BaseHuman:
+      data:
+        first: 1
+        second: ca860100
+      data:
+        first: 4
+        second: aa1a0600
+      data:
+        first: 137
+        second: a00bd100
+    CATRigHub001:
+      data:
+        first: 1
+        second: c6860100
+      data:
+        first: 4
+        second: a61a0600
+    CATRigHub002:
+      data:
+        first: 1
+        second: b6860100
+      data:
+        first: 4
+        second: 961a0600
+    CATRigHub003:
+      data:
+        first: 1
+        second: b2860100
+      data:
+        first: 4
+        second: 921a0600
+    CATRigLArm1:
+      data:
+        first: 1
+        second: ae860100
+      data:
+        first: 4
+        second: 8e1a0600
+    CATRigLArm2:
+      data:
+        first: 1
+        second: a2860100
+      data:
+        first: 4
+        second: 821a0600
+    CATRigLArmCollarbone:
+      data:
+        first: 1
+        second: d2860100
+      data:
+        first: 4
+        second: b21a0600
+    CATRigLArmPalm:
+      data:
+        first: 1
+        second: a8860100
+      data:
+        first: 4
+        second: 881a0600
+    CATRigLLeg1:
+      data:
+        first: 1
+        second: c4860100
+      data:
+        first: 4
+        second: a41a0600
+    CATRigLLeg2:
+      data:
+        first: 1
+        second: c2860100
+      data:
+        first: 4
+        second: a21a0600
+    CATRigLLegAnkle:
+      data:
+        first: 1
+        second: c0860100
+      data:
+        first: 4
+        second: a01a0600
+    CATRigLLegPlatform:
+      data:
+        first: 1
+        second: cc860100
+      data:
+        first: 4
+        second: ac1a0600
+    CATRigRArm1:
+      data:
+        first: 1
+        second: a6860100
+      data:
+        first: 4
+        second: 861a0600
+    CATRigRArm2:
+      data:
+        first: 1
+        second: ac860100
+      data:
+        first: 4
+        second: 8c1a0600
+    CATRigRArmCollarbone:
+      data:
+        first: 1
+        second: ce860100
+      data:
+        first: 4
+        second: ae1a0600
+    CATRigRArmPalm:
+      data:
+        first: 1
+        second: aa860100
+      data:
+        first: 4
+        second: 8a1a0600
+    CATRigRLeg1:
+      data:
+        first: 1
+        second: be860100
+      data:
+        first: 4
+        second: 9e1a0600
+    CATRigRLeg2:
+      data:
+        first: 1
+        second: bc860100
+      data:
+        first: 4
+        second: 9c1a0600
+    CATRigRLegAnkle:
+      data:
+        first: 1
+        second: ba860100
+      data:
+        first: 4
+        second: 9a1a0600
+    CATRigRLegPlatform:
+      data:
+        first: 1
+        second: d0860100
+      data:
+        first: 4
+        second: b01a0600
+    CATRigSpine:
+      data:
+        first: 1
+        second: b4860100
+      data:
+        first: 4
+        second: 941a0600
+    CATRigSpine2:
+      data:
+        first: 1
+        second: b8860100
+      data:
+        first: 4
+        second: 981a0600
+    CATRigSpineCATRigSpine1:
+      data:
+        first: 1
+        second: d4860100
+      data:
+        first: 4
+        second: b41a0600
+    Character001:
+      data:
+        first: 1
+        second: c8860100
+      data:
+        first: 4
+        second: a81a0600
+    Shield:
+      data:
+        first: 1
+        second: a0860100
+      data:
+        first: 4
+        second: 801a0600
+      data:
+        first: 23
+        second: 60182300
+      data:
+        first: 33
+        second: a05a3200

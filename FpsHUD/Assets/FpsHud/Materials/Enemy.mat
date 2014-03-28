@@ -1,0 +1,80 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: Enemy
+  m_Shader: {fileID: 4800000, guid: 6e3d41df31140f24ba8bc1ce9e31fe1c, type: 1}
+  m_SavedProperties:
+    serializedVersion: 2
+    m_TexEnvs:
+      data:
+        first:
+          name: _MainTex
+        second:
+          m_Texture: {fileID: 0}
+          m_Scale: {x: 1, y: 1}
+          m_Offset: {x: 0, y: 0}
+      data:
+        first:
+          name: _Atlas
+        second:
+          m_Texture: {fileID: 2800000, guid: 7e89305fa1feb234483047d83e9307e6, type: 1}
+          m_Scale: {x: 1, y: 1}
+          m_Offset: {x: 0, y: 0}
+      data:
+        first:
+          name: _Texture
+        second:
+          m_Texture: {fileID: 2800000, guid: 8a5845e083123b9469ffa1e90a00cdf3, type: 1}
+          m_Scale: {x: 1, y: 1}
+          m_Offset: {x: 0, y: 0}
+    m_Floats:
+      data:
+        first:
+          name: _Speed
+        second: .00999999978
+      data:
+        first:
+          name: _Size
+        second: 3
+      data:
+        first:
+          name: _Extrude
+        second: .100000001
+      data:
+        first:
+          name: _Rim
+        second: 3.52238798
+      data:
+        first:
+          name: _Tile
+        second: 7.55223894
+      data:
+        first:
+          name: _Strength
+        second: 2.99253726
+      data:
+        first:
+          name: _Opaque
+        second: 1
+      data:
+        first:
+          name: _MinAlpha
+        second: .0500000007
+    m_Colors:
+      data:
+        first:
+          name: _Color
+        second: {r: .925373137, g: .714095235, b: .683671236, a: 1}
+      data:
+        first:
+          name: _TintColor
+        second: {r: 1, g: 1, b: 1, a: 1}
+      data:
+        first:
+          name: _Properties
+        second: {r: 1.94000006, g: 1.88, b: 0, a: 5}

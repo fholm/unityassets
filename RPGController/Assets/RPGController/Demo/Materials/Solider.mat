@@ -1,0 +1,115 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: Solider
+  m_Shader: {fileID: 2, guid: 0000000000000000e000000000000000, type: 0}
+  m_SavedProperties:
+    serializedVersion: 2
+    m_TexEnvs:
+      data:
+        first:
+          name: _MainTex
+        second:
+          m_Texture: {fileID: 2800000, guid: 15e8834927ec3e445a626ae399fd97db, type: 1}
+          m_Scale: {x: 1, y: 1}
+          m_Offset: {x: 0, y: 0}
+      data:
+        first:
+          name: _BumpMap
+        second:
+          m_Texture: {fileID: 2800000, guid: 22c4cf005fa3c2e4784103319589fecf, type: 1}
+          m_Scale: {x: 1, y: 1}
+          m_Offset: {x: 0, y: 0}
+      data:
+        first:
+          name: _Cube
+        second:
+          m_Texture: {fileID: 8900000, guid: b66d7d28b3db14f7382a2887575a3439, type: 2}
+          m_Scale: {x: 1, y: 1}
+          m_Offset: {x: 0, y: 0}
+      data:
+        first:
+          name: _Illum
+        second:
+          m_Texture: {fileID: 2800000, guid: 1f1714396b92b4bb2a5af74c57cb57f6, type: 1}
+          m_Scale: {x: 1, y: 1}
+          m_Offset: {x: 0, y: 0}
+      data:
+        first:
+          name: _Normal
+        second:
+          m_Texture: {fileID: 2800000, guid: 22c4cf005fa3c2e4784103319589fecf, type: 1}
+          m_Scale: {x: 1, y: 1}
+          m_Offset: {x: 0, y: 0}
+      data:
+        first:
+          name: _2DReflect
+        second:
+          m_Texture: {fileID: 0}
+          m_Scale: {x: 1, y: 1}
+          m_Offset: {x: 0, y: 0}
+      data:
+        first:
+          name: _BRDFTex
+        second:
+          m_Texture: {fileID: 2800000, guid: 1af25611ceea0a74a9a88e8b3289738e, type: 1}
+          m_Scale: {x: 1, y: 1}
+          m_Offset: {x: 0, y: 0}
+    m_Floats:
+      data:
+        first:
+          name: _Shininess
+        second: 47.8373146
+      data:
+        first:
+          name: _EmissionLM
+        second: 50
+      data:
+        first:
+          name: _SelfIllumination
+        second: 1.71641791
+      data:
+        first:
+          name: _SelfIllumStrength
+        second: 1.5
+      data:
+        first:
+          name: _RoomReflectionAmount
+        second: 2.92537308
+      data:
+        first:
+          name: _NonLightmapColorMod
+        second: .432835817
+    m_Colors:
+      data:
+        first:
+          name: _LightDir
+        second: {r: -.204236522, g: -.551798105, b: -.808582962, a: 0}
+      data:
+        first:
+          name: _LightColor
+        second: {r: .433046639, g: .623868525, b: .626233518, a: 1}
+      data:
+        first:
+          name: _Color
+        second: {r: 1, g: 1, b: 1, a: 1}
+      data:
+        first:
+          name: _SpecColor
+        second: {r: .999898911, g: 1, b: .999841869, a: 1}
+      data:
+        first:
+          name: _TintColor
+        second: {r: .999903023, g: 1, b: .999830008, a: 1}
+      data:
+        first:
+          name: _SpecularColor
+        second: {r: .800000012, g: .800000012, b: .800000012, a: .800000012}
+--- !u!1002 &2100001
+EditorExtensionImpl:
+  serializedVersion: 6

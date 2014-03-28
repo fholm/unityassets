@@ -1,0 +1,79 @@
+fileFormatVersion: 2
+guid: 943d3e71e82e247b5ba122fd78e0c215
+ModelImporter:
+  fileIDToRecycleName:
+    4300000: polySurface4
+    4300002: polySurface6
+    4300004: polySurface7
+    4300006: polySurface18
+    4300008: polySurface21
+    4300010: pCylinder1
+    4300012: polySurface24
+    4300014: polySurface25
+    4300016: polySurface125
+    4300018: polySurface126
+    4300020: polySurface127
+    4300022: polySurface128
+    4300024: polySurface129
+    4300026: polySurface130
+    4300028: polySurface131
+    4300030: polySurface132
+    4300032: polySurface133
+    4300034: polySurface134
+    4300036: polySurface135
+    4300038: polySurface136
+    4300040: polySurface137
+    4300042: polySurface138
+    4300044: polySurface139
+    4300046: polySurface140
+    100100000: DataTemplate __Singleton__
+  serializedVersion: 10
+  materials:
+    importMaterials: 1
+    materialName: 3
+    materialSearch: 1
+  animations:
+    generateAnimations: 3
+    bakeSimulation: 0
+    splitAnimations: 1
+    animationCompression: 1
+    animationRotationError: .5
+    animationPositionError: .5
+    animationScaleError: .5
+    animationWrapMode: 0
+    clipAnimations: []
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1.10000002
+    meshCompression: 0
+    addColliders: 0
+    swapUVChannels: 0
+    generateSecondaryUV: 1
+    useFileUnits: 1
+    optimizeMesh: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+  tangentSpace:
+    normalSmoothAngle: 60
+    splitTangentsAcrossUV: 1
+    normalImportMode: 0
+    tangentImportMode: 1
+  textMetaNamesToFileIDs:
+    //RootNode:
+      data:
+        first: 1
+        second: a6860100
+      data:
+        first: 4
+        second: 861a0600
+      data:
+        first: 23
+        second: 60182300
+      data:
+        first: 33
+        second: a05a3200
+      data:
+        first: 111
+        second: 605fa900

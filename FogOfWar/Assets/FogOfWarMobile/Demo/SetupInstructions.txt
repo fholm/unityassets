@@ -1,0 +1,5 @@
+Setup the script execution order like this:
+
+FogOfWarVisibilityChecker - 50
+FogOfWar - 100
+FogOfWarRevaler - 200

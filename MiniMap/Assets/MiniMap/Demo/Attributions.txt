@@ -1,0 +1,20 @@
+All icons in Demo/Textures/MiniMap
+ - Found through: http://findicons.com
+ - License: Freeware
+ - Author: http://sekkyumu.deviantart.com/
+
+Demo/Textures/search.png
+ - Found through: http://findicons.com
+ - License: Creative Commons Attribution (by)
+ - Author: http://www.visualpharm.com/
+
+Demo/Textures/target.png
+ - Found through: http://findicons.com
+ - License: Creative Commons Attribution (by)
+ - Author: http://www.omercetin.net/ (Omer CETIN)
+
+Demo/ping.wav
+ - Found through: http://www.freesound.org
+ - License: Creative Commons Attribution (by)
+ - Author: http://www.freesound.org/people/reinsamba/
+  

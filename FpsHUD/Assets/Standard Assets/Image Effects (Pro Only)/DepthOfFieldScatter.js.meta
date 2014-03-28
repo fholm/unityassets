@@ -1,0 +1,9 @@
+fileFormatVersion: 2
+guid: f202adaee27c646fa9d90739bb84aa42
+MonoImporter:
+  serializedVersion: 2
+  defaultReferences:
+  - objectFocus: {instanceID: 0}
+  - dofHdrShader: {fileID: 4800000, guid: acd613035ff3e455e8abf23fdc8c8c24, type: 1}
+  executionOrder: 0
+  icon: {instanceID: 0}
