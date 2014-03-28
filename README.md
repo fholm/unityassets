@@ -1,4 +1,4 @@
-**Important:** The license below covers all of the C# code files in this repository, all non-code assets, including but not limited to: models, textures, sounds, etc. are the property of their respective author and under other licenses. Most projects contains an "Attribution" files which lists the source of the non-code assets.
+**Important:** The license below covers all of the C# code files in this repository unless another license is present in the beginning of the file, all non-code assets, including but not limited to: models, textures, sounds, etc. are the property of their respective author and under other licenses. Most projects contains an "Attribution" files which lists the source of the non-code assets.
 
 
 LICENSE
