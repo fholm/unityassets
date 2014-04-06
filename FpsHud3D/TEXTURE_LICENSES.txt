@@ -1,0 +1,31 @@
+The following textures have been found online, have an unknown license and can't be used in any real game:
+FpsHud3D\Assets\FpsHud\Textures\Splatter\Splatter1.png
+FpsHud3D\Assets\FpsHud\Textures\Splatter\Splatter2.png
+FpsHud3D\Assets\FpsHud\Textures\Splatter\Splatter3.png
+FpsHud3D\Assets\FpsHud\Textures\Splatter\Splatter4.png
+FpsHud3D\Assets\FpsHud\Textures\Splatter\Splatter5.png
+FpsHud3D\Assets\FpsHud\Textures\Splatter\Splatter6.png
+FpsHud3D\Assets\FpsHud\Textures\Splatter\Splatter7.png
+FpsHud3D\Assets\FpsHud\Textures\Splatter\Splatter8.png
+FpsHud3D\Assets\FpsHud\Textures\Splatter\Splatter9.png
+FpsHud3D\Assets\FpsHud\Textures\Splatter\Splatter10.png
+FpsHud3D\Assets\FpsHud\Textures\Splatter\Splatter11.png
+FpsHud3D\Assets\FpsHud\Textures\Splatter\Splatter12.png
+FpsHud3D\Assets\FpsHud\Textures\Splatter\Splatter13png
+FpsHud3D\Assets\FpsHud\Textures\Splatter\Splatter14png
+FpsHud3D\Assets\FpsHud\Textures\Splatter\Splatter15png
+FpsHud3D\Assets\FpsHud\Textures\Splatter\Splatter16png
+FpsHud3D\Assets\FpsHud\Textures\Splatter\Splatter17png
+
+The following textures have been found from this reddit thread http://www.reddit.com/r/IndieGaming/comments/ifmie/i_made_700_rpg_icons_free_for_use_
+FpsHud3D\Assets\FpsHud\Textures\Apple.png
+FpsHud3D\Assets\FpsHud\Textures\Eye.png
+FpsHud3D\Assets\FpsHud\Textures\HealthIcon.png
+FpsHud3D\Assets\FpsHud\Textures\HeartIcon.png
+FpsHud3D\Assets\FpsHud\Textures\Needle.png
+FpsHud3D\Assets\FpsHud\Textures\ShieldIcon.png
+
+The following textures are from cgtextures.com
+FpsHud3D\Assets\FpsHud\Demo\Textures\Tiles.jpg
+
+The remaining textures in the folder FpsHud3D\Assets\FpsHud\Textures\ (crosshairs, dots, radar textures, compass, etc.) are all made by me and are public domain
