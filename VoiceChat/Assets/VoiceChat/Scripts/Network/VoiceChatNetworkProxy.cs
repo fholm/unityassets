@@ -11,7 +11,7 @@ public class VoiceChatNetworkProxy : MonoBehaviour
 
     void Start()
     {
-        if (networkView.isMine)
+        if (GetComponent<NetworkView>().isMine)
         {
             VoiceChatRecorder.Instance.NewSample += new System.Action<VoiceChatPacket>(OnNewSample);
         }
@@ -19,10 +19,10 @@ public class VoiceChatNetworkProxy : MonoBehaviour
         if (Network.isServer)
         {
             assignedNetworkId = ++networkIdCounter;
-            networkView.RPC("SetNetworkId", networkView.owner, assignedNetworkId);
+            GetComponent<NetworkView>().RPC("SetNetworkId", GetComponent<NetworkView>().owner, assignedNetworkId);
         }
 
-        if(Network.isClient && !networkView.isMine)
+        if(Network.isClient && (!GetComponent<NetworkView>().isMine || VoiceChatSettings.Instance.LocalDebug))
         {
             gameObject.AddComponent<AudioSource>();
             player = gameObject.AddComponent<VoiceChatPlayer>();
