@@ -1,72 +1,75 @@
 using System.Collections.Generic;
 
-public abstract class VoiceChatPool<T> 
-    where T : class
+namespace VoiceChat
 {
-    Queue<T> queue = new Queue<T>();
-
-    public T Get()
+    public abstract class VoiceChatPool<T>
+where T : class
     {
-        if (queue.Count > 0)
+        Queue<T> queue = new Queue<T>();
+
+        public T Get()
         {
-            return queue.Dequeue();
+            if (queue.Count > 0)
+            {
+                return queue.Dequeue();
+            }
+
+            return Create();
         }
 
-        return Create();
+        public void Return(T obj)
+        {
+            if (obj != null)
+            {
+                queue.Enqueue(obj);
+            }
+        }
+
+        protected abstract T Create();
     }
 
-    public void Return(T obj)
+    public class VoiceChatBytePool : VoiceChatPool<byte[]>
     {
-        if (obj != null)
+        public static readonly VoiceChatBytePool Instance = new VoiceChatBytePool();
+
+        VoiceChatBytePool()
         {
-            queue.Enqueue(obj);
+
+        }
+
+        protected override byte[] Create()
+        {
+            return new byte[VoiceChatSettings.Instance.SampleSize];
         }
     }
 
-    protected abstract T Create();
-}
-
-public class VoiceChatBytePool : VoiceChatPool<byte[]>
-{
-    public static readonly VoiceChatBytePool Instance = new VoiceChatBytePool();
-
-    VoiceChatBytePool()
+    public class VoiceChatShortPool : VoiceChatPool<short[]>
     {
+        public static readonly VoiceChatShortPool Instance = new VoiceChatShortPool();
 
+        VoiceChatShortPool()
+        {
+
+        }
+
+        protected override short[] Create()
+        {
+            return new short[VoiceChatSettings.Instance.SampleSize];
+        }
     }
 
-    protected override byte[] Create()
+    public class VoiceChatFloatPool : VoiceChatPool<float[]>
     {
-        return new byte[VoiceChatSettings.Instance.SampleSize];
-    }
-}
+        public static readonly VoiceChatFloatPool Instance = new VoiceChatFloatPool();
 
-public class VoiceChatShortPool : VoiceChatPool<short[]>
-{
-    public static readonly VoiceChatShortPool Instance = new VoiceChatShortPool();
+        VoiceChatFloatPool()
+        {
 
-    VoiceChatShortPool()
-    {
+        }
 
-    }
-
-    protected override short[] Create()
-    {
-        return new short[VoiceChatSettings.Instance.SampleSize];
-    }
-}
-
-public class VoiceChatFloatPool : VoiceChatPool<float[]>
-{
-    public static readonly VoiceChatFloatPool Instance = new VoiceChatFloatPool();
-
-    VoiceChatFloatPool()
-    {
-
-    }
-
-    protected override float[] Create()
-    {
-        return new float[VoiceChatSettings.Instance.SampleSize];
-    }
+        protected override float[] Create()
+        {
+            return new float[VoiceChatSettings.Instance.SampleSize];
+        }
+    } 
 }

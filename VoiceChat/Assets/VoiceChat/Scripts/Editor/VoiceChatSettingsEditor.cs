@@ -3,24 +3,28 @@ using System.Linq;
 using UnityEditor;
 using UnityEngine;
 
-[CustomEditor(typeof(VoiceChatSettings))]
-public class VoiceChatSettingsEditor : Editor
+namespace VoiceChat
 {
-    public override void OnInspectorGUI()
+    [CustomEditor(typeof(VoiceChatSettings))]
+    public class VoiceChatSettingsEditor : Editor
     {
-        VoiceChatSettings settings = target as VoiceChatSettings;
-
-        if (settings != null)
+        public override void OnInspectorGUI()
         {
-            settings.LocalDebug = EditorGUILayout.Toggle("Local Debug", settings.LocalDebug);
-            settings.Preset = (VoiceChatPreset)EditorGUILayout.EnumPopup("Codec", settings.Preset);
-            EditorGUILayout.LabelField("Frequency", settings.Frequency.ToString());
-            EditorGUILayout.LabelField("Sample Size", settings.SampleSize.ToString());
+            VoiceChatSettings settings = target as VoiceChatSettings;
 
-            if (GUI.changed)
+            if (settings != null)
             {
-                EditorUtility.SetDirty(settings);
+                settings.LocalDebug = EditorGUILayout.Toggle("Local Debug", settings.LocalDebug);
+                settings.Preset = (VoiceChatPreset)EditorGUILayout.EnumPopup("Codec", settings.Preset);
+                EditorGUILayout.LabelField("Frequency", settings.Frequency.ToString());
+                EditorGUILayout.LabelField("Sample Size", settings.SampleSize.ToString());
+
+                if (GUI.changed)
+                {
+                    EditorUtility.SetDirty(settings);
+                }
             }
         }
     }
+    
 }

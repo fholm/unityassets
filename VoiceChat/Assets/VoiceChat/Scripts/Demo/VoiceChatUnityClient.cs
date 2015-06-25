@@ -1,25 +1,29 @@
 using UnityEngine;
 using System.Collections;
+using VoiceChat.Networking.Legacy;
 
-public class VoiceChatUnityClient : MonoBehaviour
+namespace VoiceChat.Demo.LegacyNetworking
 {
-    VoiceChatNetworkProxy proxy;
-
-    public int Port = 15000;
-    public string Address = "127.0.0.1";
-
-    void Start()
+    public class VoiceChatUnityClient : MonoBehaviour
     {
-        Network.Connect(Address, Port);
-    }
+        VoiceChatNetworkProxy proxy;
 
-    void OnConnectedToServer()
-    {
-        proxy = VoiceChatUtils.CreateProxy();
-    }
+        public int Port = 15000;
+        public string Address = "127.0.0.1";
 
-    void OnDisconnectedFromServer(NetworkDisconnection info)
-    {
-        GameObject.Destroy(proxy.gameObject);
-    }
+        void Start()
+        {
+            Network.Connect(Address, Port);
+        }
+
+        void OnConnectedToServer()
+        {
+            proxy = VoiceChatNetworkUtils.CreateProxy();
+        }
+
+        void OnDisconnectedFromServer(NetworkDisconnection info)
+        {
+            GameObject.Destroy(proxy.gameObject);
+        }
+    } 
 }

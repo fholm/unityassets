@@ -1,10 +1,14 @@
 using UnityEngine;
 using System.Collections;
 
-public struct VoiceChatPacket
+namespace VoiceChat
 {
-    public VoiceChatCompression Compression;
-    public int Length;
-    public byte[] Data;
-    public int NetworkId;
+    public struct VoiceChatPacket
+    {
+        public VoiceChatCompression Compression;
+        public int Length;
+        public byte[] Data;
+        public int NetworkId;
+    }
+
 }

@@ -1,13 +1,16 @@
 using UnityEngine;
 using System.Collections;
 
-public enum VoiceChatCompression : byte
+namespace VoiceChat
 {
-    /*
-    Raw, 
-    RawZlib, 
-    */
-    Alaw, 
-    AlawZlib, 
-    Speex
+    public enum VoiceChatCompression : byte
+    {
+        /*
+        Raw, 
+        RawZlib, 
+        */
+        Alaw,
+        AlawZlib,
+        Speex
+    } 
 }
