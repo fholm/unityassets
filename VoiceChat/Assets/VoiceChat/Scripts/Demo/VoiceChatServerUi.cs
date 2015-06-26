@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections;
 
-namespace VoiceChat.Demo.LegacyNetworking
+namespace VoiceChat.Demo
 {
     public class VoiceChatServerUi : MonoBehaviour
     {

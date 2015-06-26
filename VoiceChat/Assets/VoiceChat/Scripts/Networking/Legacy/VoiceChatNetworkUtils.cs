@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace VoiceChat.Networking.Legacy
 {
-    class VoiceChatNetworkUtils
+    public class VoiceChatNetworkUtils
     {
         public static VoiceChatNetworkProxy CreateProxy()
         {
@@ -16,7 +16,7 @@ namespace VoiceChat.Networking.Legacy
                 return null;
             }
 
-            GameObject prefab = Resources.Load("VoiceChat_NetworkProxy") as GameObject;
+            GameObject prefab = Resources.Load("Legacy/VoiceChat_NetworkProxy") as GameObject;
             GameObject instance = Network.Instantiate(prefab, Vector3.zero, Quaternion.identity, 0) as GameObject;
             return instance.GetComponent<VoiceChatNetworkProxy>();
         }

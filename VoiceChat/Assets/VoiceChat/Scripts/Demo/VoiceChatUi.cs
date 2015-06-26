@@ -2,7 +2,7 @@ using UnityEngine;
 using System.Collections;
 using System.Linq;
 
-namespace VoiceChat.Demo.LegacyNetworking
+namespace VoiceChat.Demo
 {
     public class VoiceChatUi : MonoBehaviour
     {
@@ -13,12 +13,12 @@ namespace VoiceChat.Demo.LegacyNetworking
 
         void OnGUI()
         {
-            GUILayout.Window(1, new Rect(10, 10, Screen.width - 20, Screen.height - 20), Window, "", GUIStyle.none);
+            GUILayout.Window(1, new Rect(250, 10, Screen.width - 260, Screen.height - 20), Window, "", GUIStyle.none);
         }
 
         void Window(int id)
         {
-            GUI.Box(new Rect(0, 0, Screen.width - 20, Screen.height - 20), "");
+            GUI.Box(new Rect(0, 0, Screen.width - 260, Screen.height - 20), "");
 
             if (VoiceChatRecorder.Instance.IsRecording)
             {
