@@ -41,7 +41,20 @@ namespace VoiceChat.Networking
             packets.Enqueue(packet);
         }
 
-     
+        void SetNetworkId(int networkId)
+        {
+            var netIdentity = GetComponent<NetworkIdentity>();
+            if (netIdentity.isServer || netIdentity.isClient)
+            {
+                Debug.LogWarning("Can only set NetworkId before spawning");
+                return;
+            }
+
+            this.networkId = networkId;
+            //VoiceChatRecorder.Instance.NetworkId = networkId;
+        }
+
+
         void OnSerializeNetworkView(BitStream stream, NetworkMessageInfo info)
         {
             int count = packets.Count;
