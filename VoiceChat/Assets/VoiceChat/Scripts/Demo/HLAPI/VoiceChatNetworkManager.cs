@@ -8,98 +8,46 @@ namespace VoiceChat.Demo.HLAPI
 {
     public class VoiceChatNetworkManager : NetworkManager
     {
-        public delegate void MessageHandler<T>(T data);
-        public static event MessageHandler<VoiceChatPacketMessage> VoiceChatPacketReceived;
-
-        public GameObject voiceChatProxyPrefab;
-        private Dictionary<int, GameObject> proxies = new Dictionary<int, GameObject>();
-
-        public static VoiceChatNetworkManager singleton
-        {
-            get { return NetworkManager.singleton as VoiceChatNetworkManager; }
-        }
-
         public override void OnStartClient(NetworkClient client)
         {
-            client.RegisterHandler(VoiceChatMsgType.Packet, OnVoiceChatPacketReceived);
-            client.RegisterHandler(VoiceChatMsgType.SpawnProxy, OnProxySpawned);
+            VoiceChatNetworkProxy.OnStartClient(client);
 
-            ClientScene.RegisterPrefab(voiceChatProxyPrefab);
+            gameObject.AddComponent<VoiceChatUi>();
         }
 
         public override void OnStopClient()
         {
-            if (client == null) return;
+            VoiceChatNetworkProxy.OnStopClient();
 
-            client.UnregisterHandler(VoiceChatMsgType.Packet);
-            client.UnregisterHandler(VoiceChatMsgType.SpawnProxy);
+            if (client != null)
+                Destroy(GetComponent<VoiceChatUi>());
         }
 
         public override void OnServerDisconnect(NetworkConnection conn)
         {
-            base.OnClientDisconnect(conn);
+            base.OnServerDisconnect(conn);
 
-            var id = conn.connectionId;
-
-            if (!proxies.ContainsKey(id))
-            {
-                Debug.LogWarning("Proxy destruction requested for client " + id + " but proxy wasn't registered");
-                return;
-            }
-
-            var proxy = proxies[id];
-            NetworkServer.Destroy(proxy);
-
-            proxies.Remove(id);
+            VoiceChatNetworkProxy.OnServerDisconnect(conn);
         }
 
         public override void OnStartServer()
         {
-            NetworkServer.RegisterHandler(VoiceChatMsgType.Packet, OnVoiceChatPacketReceived);
-            NetworkServer.RegisterHandler(VoiceChatMsgType.RequestProxy, OnProxyRequested);
+            VoiceChatNetworkProxy.OnStartServer();
+
+            gameObject.AddComponent<VoiceChatServerUi>();
         }
 
         public override void OnStopServer()
         {
-            NetworkServer.UnregisterHandler(VoiceChatMsgType.Packet);
-            NetworkServer.UnregisterHandler(VoiceChatMsgType.RequestProxy);
+            VoiceChatNetworkProxy.OnStopServer();
+
+            Destroy(GetComponent<VoiceChatServerUi>());
         }
 
         public override void OnClientConnect(NetworkConnection connection)
         {
             base.OnClientConnect(connection);
-
-            client.Send(VoiceChatMsgType.RequestProxy, new EmptyMessage());
-        }
-
-        private void OnProxyRequested(NetworkMessage netMsg)
-        {
-            var id = netMsg.conn.connectionId;
-            netMsg.conn.Send(VoiceChatMsgType.SpawnProxy, new IntegerMessage(id));
-
-            var proxy = Instantiate<GameObject>(voiceChatProxyPrefab);
-            proxy.SendMessage("SetNetworkId", id);
-
-            proxies.Add(id, proxy);
-            NetworkServer.Spawn(proxy);
-
-        }
-
-        private void OnProxySpawned(NetworkMessage netMsg)
-        {
-            var localProxyId = netMsg.ReadMessage<IntegerMessage>().value;
-            Debug.Log("Object spawned " + localProxyId);
-
-            VoiceChatNetworkProxy.LocalProxyId = localProxyId;
-        }
-
-        private void OnVoiceChatPacketReceived(NetworkMessage netMsg)
-        {
-            if (VoiceChatPacketReceived != null)
-            {
-                var data = netMsg.ReadMessage<VoiceChatPacketMessage>();
-                VoiceChatPacketReceived(data);
-            }
+            VoiceChatNetworkProxy.OnClientConnect(connection);
         }
     }
 }

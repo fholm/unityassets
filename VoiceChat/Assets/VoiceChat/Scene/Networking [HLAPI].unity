@@ -233,7 +233,7 @@ MonoBehaviour:
   m_RunInBackground: 1
   m_SendPeerInfo: 0
   m_MaxDelay: .00999999978
-  m_LogLevel: 2
+  m_LogLevel: 0
   m_PlayerPrefab: {fileID: 0}
   m_AutoCreatePlayer: 0
   m_PlayerSpawnMethod: 0
@@ -271,7 +271,6 @@ MonoBehaviour:
   matchMaker: {fileID: 0}
   matchName: default
   matchSize: 4
-  voiceChatProxyPrefab: {fileID: 100000, guid: 2b2103bde27e6b44a82bb69671412321, type: 2}
 --- !u!1 &1913056339
 GameObject:
   m_ObjectHideFlags: 0

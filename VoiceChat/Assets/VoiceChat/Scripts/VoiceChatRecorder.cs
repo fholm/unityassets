@@ -131,7 +131,6 @@ namespace VoiceChat
             }
 
             Application.RequestUserAuthorization(UserAuthorization.Microphone);
-            NetworkId = -1;
             instance = this;
         }
 
@@ -303,9 +302,9 @@ namespace VoiceChat
 
         public bool StartRecording()
         {
-            if (NetworkId == -1 && !VoiceChatSettings.Instance.LocalDebug)
+            if (NetworkId == 0 && !VoiceChatSettings.Instance.LocalDebug)
             {
-                Debug.LogError("NetworkId is -1");
+                Debug.LogError("NetworkId is not set");
                 return false;
             }
 
