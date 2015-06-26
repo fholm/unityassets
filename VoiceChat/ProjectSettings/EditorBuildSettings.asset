@@ -6,4 +6,6 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/VoiceChat/Scene/Demo.unity
+    path: Assets/VoiceChat/Scene/Networking [HLAPI].unity
+  - enabled: 1
+    path: Assets/VoiceChat/Scene/LegacyNetworking.unity
