@@ -1,0 +1,48 @@
+# Unity3D .gitignore file.
+
+# ---------------[ tk2d Toolkit ]--------------------- #
+Assets/-tk2d.asset
+Assets/-tk2d.asset.meta
+
+# ---------------[ Unity generated ]------------------ #
+[Tt]emp/
+[Oo]bj/
+[Uu]nity[Gg]enerated/
+[Ll]ibrary/
+[Bb]uild/
+
+# ----[ Visual Studio / MonoDevelop generated ]------- #
+ [Ee]xported[Oo]bj/
+*.booproj
+*.booproj.meta
+*.csproj
+*.csproj.meta
+*.pidb
+*.pidb.meta
+*.sln
+*.sln.meta
+*.sln.DotSettings.user
+*.sln.DotSettings.user.meta
+*.suo
+*.suo.meta
+*.svd
+*.svd.meta
+*.unityproj
+*.unityproj.meta
+*.user
+*.user.meta
+*.userprefs
+*.userprefs.meta
+_Resharper.*
+Assets/UnityVS
+Assets/UnityVS.meta
+
+# -------------[ OS generated ]------------------------ #
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+Icon?
+ehthumbs.db
+Thumbs.db

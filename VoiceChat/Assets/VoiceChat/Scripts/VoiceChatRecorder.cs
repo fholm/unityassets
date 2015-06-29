@@ -2,338 +2,340 @@ using System;
 using System.Linq;
 using UnityEngine;
 
-public class VoiceChatRecorder : MonoBehaviour
+namespace VoiceChat
 {
-    #region Instance
-
-    static VoiceChatRecorder instance;
-
-    public static VoiceChatRecorder Instance
+    public class VoiceChatRecorder : MonoBehaviour
     {
-        get
+        #region Instance
+
+        static VoiceChatRecorder instance;
+
+        public static VoiceChatRecorder Instance
         {
-            if (instance == null)
+            get
             {
-                instance = FindObjectOfType(typeof(VoiceChatRecorder)) as VoiceChatRecorder;
+                if (instance == null)
+                {
+                    instance = FindObjectOfType(typeof(VoiceChatRecorder)) as VoiceChatRecorder;
+                }
+
+                return instance;
             }
-
-            return instance;
         }
-    }
 
-    #endregion
+        #endregion
 
-    [SerializeField]
-    KeyCode toggleToTalkKey = KeyCode.O;
+        [SerializeField]
+        KeyCode toggleToTalkKey = KeyCode.O;
 
-    [SerializeField]
-    KeyCode pushToTalkKey = KeyCode.P;
+        [SerializeField]
+        KeyCode pushToTalkKey = KeyCode.P;
 
-    [SerializeField]
-    bool autoDetectSpeaking = false;
+        [SerializeField]
+        bool autoDetectSpeaking = false;
 
-    [SerializeField]
-    int autoDetectIndex = 4;
+        [SerializeField]
+        int autoDetectIndex = 4;
 
-    [SerializeField]
-    float forceTransmitTime = 2f;
+        [SerializeField]
+        float forceTransmitTime = 2f;
 
-    int previousPosition = 0;
-    int sampleIndex = 0;
-    string device = null;
-    AudioClip clip = null;
-    bool transmitToggled = false;
-    bool recording = false;
-    float forceTransmit = 0f;
-    int recordFrequency = 0;
-    int recordSampleSize = 0;
-    int targetFrequency = 0;
-    int targetSampleSize = 0;
-    float[] fftBuffer = null;
-    float[] sampleBuffer = null;
-    VoiceChatCircularBuffer<float[]> previousSampleBuffer = new VoiceChatCircularBuffer<float[]>(5);
-    
-    public KeyCode PushToTalkKey
-    {
-        get { return pushToTalkKey; }
-        set { pushToTalkKey = value; }
-    }
+        int previousPosition = 0;
+        int sampleIndex = 0;
+        string device = null;
+        AudioClip clip = null;
+        bool transmitToggled = false;
+        bool recording = false;
+        float forceTransmit = 0f;
+        int recordFrequency = 0;
+        int recordSampleSize = 0;
+        int targetFrequency = 0;
+        int targetSampleSize = 0;
+        float[] fftBuffer = null;
+        float[] sampleBuffer = null;
+        VoiceChatCircularBuffer<float[]> previousSampleBuffer = new VoiceChatCircularBuffer<float[]>(5);
 
-    public KeyCode ToggleToTalkKey
-    {
-        get { return toggleToTalkKey; }
-        set { toggleToTalkKey = value; }
-    }
-
-    public bool AutoDetectSpeech
-    {
-        get { return autoDetectSpeaking; }
-        set { autoDetectSpeaking = value; }
-    }
-
-    public int NetworkId
-    {
-        get;
-        set;
-    }
-
-    public string Device
-    {
-        get { return device; }
-        set
+        public KeyCode PushToTalkKey
         {
-            if (value != null && !Microphone.devices.Contains(value))
+            get { return pushToTalkKey; }
+            set { pushToTalkKey = value; }
+        }
+
+        public KeyCode ToggleToTalkKey
+        {
+            get { return toggleToTalkKey; }
+            set { toggleToTalkKey = value; }
+        }
+
+        public bool AutoDetectSpeech
+        {
+            get { return autoDetectSpeaking; }
+            set { autoDetectSpeaking = value; }
+        }
+
+        public int NetworkId
+        {
+            get;
+            set;
+        }
+
+        public string Device
+        {
+            get { return device; }
+            set
             {
-                Debug.LogError(value + " is not a valid microphone device");
+                if (value != null && !Microphone.devices.Contains(value))
+                {
+                    Debug.LogError(value + " is not a valid microphone device");
+                    return;
+                }
+
+                device = value;
+            }
+        }
+
+        public bool HasDefaultDevice
+        {
+            get { return device == null; }
+        }
+
+        public bool HasSpecificDevice
+        {
+            get { return device != null; }
+        }
+
+        public bool IsTransmitting
+        {
+            get { return transmitToggled || forceTransmit > 0 || Input.GetKey(pushToTalkKey); }
+        }
+
+        public bool IsRecording
+        {
+            get { return recording; }
+        }
+
+        public string[] AvailableDevices
+        {
+            get { return Microphone.devices; }
+        }
+
+        public event System.Action<VoiceChatPacket> NewSample;
+
+        void Start()
+        {
+            if (instance != null && instance != this)
+            {
+                MonoBehaviour.Destroy(this);
+                Debug.LogError("Only one instance of VoiceChatRecorder can exist");
                 return;
             }
 
-            device = value;
-        }
-    }
-
-    public bool HasDefaultDevice
-    {
-        get { return device == null; }
-    }
-
-    public bool HasSpecificDevice
-    {
-        get { return device != null; }
-    }
-
-    public bool IsTransmitting
-    {
-        get { return transmitToggled || forceTransmit > 0 || Input.GetKey(pushToTalkKey); }
-    }
-
-    public bool IsRecording
-    {
-        get { return recording; }
-    }
-
-    public string[] AvailableDevices
-    {
-        get { return Microphone.devices; }
-    }
-
-    public event System.Action<VoiceChatPacket> NewSample;
-
-    void Start()
-    {
-        if (instance != null && instance != this)
-        {
-            MonoBehaviour.Destroy(this);
-            Debug.LogError("Only one instance of VoiceChatRecorder can exist");
-            return;
+            Application.RequestUserAuthorization(UserAuthorization.Microphone);
+            instance = this;
         }
 
-        Application.RequestUserAuthorization(UserAuthorization.Microphone);
-        NetworkId = -1;
-        instance = this;
-    }
-
-    void OnEnable()
-    {
-        if (instance != null && instance != this)
+        void OnEnable()
         {
-            MonoBehaviour.Destroy(this);
-            Debug.LogError("Only one instance of VoiceChatRecorder can exist");
-            return;
+            if (instance != null && instance != this)
+            {
+                MonoBehaviour.Destroy(this);
+                Debug.LogError("Only one instance of VoiceChatRecorder can exist");
+                return;
+            }
+
+            Application.RequestUserAuthorization(UserAuthorization.Microphone);
+            instance = this;
         }
 
-        Application.RequestUserAuthorization(UserAuthorization.Microphone);
-        instance = this;
-    }
-
-    void OnDisable()
-    {
-        instance = null;
-    }
-
-    void OnDestroy()
-    {
-        instance = null;
-    }
-
-    void Update()
-    {
-        if (!recording)
+        void OnDisable()
         {
-            return;
+            instance = null;
         }
 
-        forceTransmit -= Time.deltaTime;
-
-        if (Input.GetKeyUp(toggleToTalkKey))
+        void OnDestroy()
         {
-            transmitToggled = !transmitToggled;
+            instance = null;
         }
 
-        bool transmit = transmitToggled || Input.GetKey(pushToTalkKey);
-        int currentPosition = Microphone.GetPosition(Device);
-
-        // This means we wrapped around
-        if (currentPosition < previousPosition)
+        void Update()
         {
-            while (sampleIndex < recordFrequency)
+            if (!recording)
+            {
+                return;
+            }
+
+            forceTransmit -= Time.deltaTime;
+
+            if (Input.GetKeyUp(toggleToTalkKey))
+            {
+                transmitToggled = !transmitToggled;
+            }
+
+            bool transmit = transmitToggled || Input.GetKey(pushToTalkKey);
+            int currentPosition = Microphone.GetPosition(Device);
+
+            // This means we wrapped around
+            if (currentPosition < previousPosition)
+            {
+                while (sampleIndex < recordFrequency)
+                {
+                    ReadSample(transmit);
+                }
+
+                sampleIndex = 0;
+            }
+
+            // Read non-wrapped samples
+            previousPosition = currentPosition;
+
+            while (sampleIndex + recordSampleSize <= currentPosition)
             {
                 ReadSample(transmit);
             }
-
-            sampleIndex = 0;
         }
 
-        // Read non-wrapped samples
-        previousPosition = currentPosition;
-
-        while (sampleIndex + recordSampleSize <= currentPosition)
+        void Resample(float[] src, float[] dst)
         {
-            ReadSample(transmit);
-        }
-    }
-
-    void Resample(float[] src, float[] dst)
-    {
-        if (src.Length == dst.Length)
-        {
-            Array.Copy(src, 0, dst, 0, src.Length);
-        }
-        else
-        {
-            //TODO: Low-pass filter 
-            float rec = 1.0f / (float)dst.Length;
-
-            for (int i = 0; i < dst.Length; ++i)
+            if (src.Length == dst.Length)
             {
-                float interp = rec * (float)i * (float)src.Length;
-                dst[i] = src[(int)interp];
+                Array.Copy(src, 0, dst, 0, src.Length);
             }
-        }
-    }
-
-    void ReadSample(bool transmit)
-    {
-        // Extract data
-        clip.GetData(sampleBuffer, sampleIndex);
-
-        // Grab a new sample buffer
-        float[] targetSampleBuffer = VoiceChatFloatPool.Instance.Get();
-
-        // Resample our real sample into the buffer
-        Resample(sampleBuffer, targetSampleBuffer);
-
-        // Forward index
-        sampleIndex += recordSampleSize;
-
-        // Highest auto-detected frequency
-        float freq = float.MinValue;
-        int index = -1;
-
-        // Auto detect speech, but no need to do if we're pushing a key to transmit
-        if (autoDetectSpeaking && !transmit)
-        {
-            // Clear FFT buffer
-            for (int i = 0; i < fftBuffer.Length; ++i)
+            else
             {
-                fftBuffer[i] = 0;
-            }
+                //TODO: Low-pass filter 
+                float rec = 1.0f / (float)dst.Length;
 
-            // Copy to FFT buffer
-            Array.Copy(targetSampleBuffer, 0, fftBuffer, 0, targetSampleBuffer.Length);
-
-            // Apply FFT
-            Exocortex.DSP.Fourier.FFT(fftBuffer, fftBuffer.Length / 2, Exocortex.DSP.FourierDirection.Forward);
-
-            // Get highest frequency
-            for (int i = 0; i < fftBuffer.Length; ++i)
-            {
-                if (fftBuffer[i] > freq)
+                for (int i = 0; i < dst.Length; ++i)
                 {
-                    freq = fftBuffer[i];
-                    index = i;
+                    float interp = rec * (float)i * (float)src.Length;
+                    dst[i] = src[(int)interp];
                 }
             }
         }
 
-        // If we have an event, and 
-        if (NewSample != null && (transmit || forceTransmit > 0 || index >= autoDetectIndex))
+        void ReadSample(bool transmit)
         {
-            // If we auto-detected a voice, force recording for a while
-            if (index >= autoDetectIndex)
+            // Extract data
+            clip.GetData(sampleBuffer, sampleIndex);
+
+            // Grab a new sample buffer
+            float[] targetSampleBuffer = VoiceChatFloatPool.Instance.Get();
+
+            // Resample our real sample into the buffer
+            Resample(sampleBuffer, targetSampleBuffer);
+
+            // Forward index
+            sampleIndex += recordSampleSize;
+
+            // Highest auto-detected frequency
+            float freq = float.MinValue;
+            int index = -1;
+
+            // Auto detect speech, but no need to do if we're pushing a key to transmit
+            if (autoDetectSpeaking && !transmit)
             {
-                if (forceTransmit <= 0)
+                // Clear FFT buffer
+                for (int i = 0; i < fftBuffer.Length; ++i)
                 {
-                    while (previousSampleBuffer.Count > 0)
+                    fftBuffer[i] = 0;
+                }
+
+                // Copy to FFT buffer
+                Array.Copy(targetSampleBuffer, 0, fftBuffer, 0, targetSampleBuffer.Length);
+
+                // Apply FFT
+                Exocortex.DSP.Fourier.FFT(fftBuffer, fftBuffer.Length / 2, Exocortex.DSP.FourierDirection.Forward);
+
+                // Get highest frequency
+                for (int i = 0; i < fftBuffer.Length; ++i)
+                {
+                    if (fftBuffer[i] > freq)
                     {
-                        TransmitBuffer(previousSampleBuffer.Remove());
+                        freq = fftBuffer[i];
+                        index = i;
                     }
                 }
-
-                forceTransmit = forceTransmitTime;
             }
 
-            TransmitBuffer(targetSampleBuffer);
-        }
-        else
-        {
-            if (previousSampleBuffer.Count == previousSampleBuffer.Capacity)
+            // If we have an event, and 
+            if (NewSample != null && (transmit || forceTransmit > 0 || index >= autoDetectIndex))
             {
-                VoiceChatFloatPool.Instance.Return(previousSampleBuffer.Remove());
+                // If we auto-detected a voice, force recording for a while
+                if (index >= autoDetectIndex)
+                {
+                    if (forceTransmit <= 0)
+                    {
+                        while (previousSampleBuffer.Count > 0)
+                        {
+                            TransmitBuffer(previousSampleBuffer.Remove());
+                        }
+                    }
+
+                    forceTransmit = forceTransmitTime;
+                }
+
+                TransmitBuffer(targetSampleBuffer);
+            }
+            else
+            {
+                if (previousSampleBuffer.Count == previousSampleBuffer.Capacity)
+                {
+                    VoiceChatFloatPool.Instance.Return(previousSampleBuffer.Remove());
+                }
+
+                previousSampleBuffer.Add(targetSampleBuffer);
             }
 
-            previousSampleBuffer.Add(targetSampleBuffer);
         }
 
-    }
-
-    void TransmitBuffer(float[] buffer)
-    {
-        // Compress into packet
-        VoiceChatPacket packet = VoiceChatUtils.Compress(buffer);
-
-        // Set networkid of packet
-        packet.NetworkId = NetworkId;
-
-        // Raise event
-        NewSample(packet);
-    }
-
-    public bool StartRecording()
-    {
-        if (NetworkId == -1 && !VoiceChatSettings.Instance.LocalDebug)
+        void TransmitBuffer(float[] buffer)
         {
-            Debug.LogError("NetworkId is -1");
-            return false;
+            // Compress into packet
+            VoiceChatPacket packet = VoiceChatUtils.Compress(buffer);
+
+            // Set networkid of packet
+            packet.NetworkId = NetworkId;
+
+            // Raise event
+            NewSample(packet);
         }
 
-        if (recording)
+        public bool StartRecording()
         {
-            Debug.LogError("Already recording");
-            return false;
+            if (NetworkId == 0 && !VoiceChatSettings.Instance.LocalDebug)
+            {
+                Debug.LogError("NetworkId is not set");
+                return false;
+            }
+
+            if (recording)
+            {
+                Debug.LogError("Already recording");
+                return false;
+            }
+
+            targetFrequency = VoiceChatSettings.Instance.Frequency;
+            targetSampleSize = VoiceChatSettings.Instance.SampleSize;
+
+            int minFreq;
+            int maxFreq;
+            Microphone.GetDeviceCaps(Device, out minFreq, out maxFreq);
+
+            recordFrequency = minFreq == 0 && maxFreq == 0 ? 44100 : maxFreq;
+            recordSampleSize = recordFrequency / (targetFrequency / targetSampleSize);
+
+            clip = Microphone.Start(Device, true, 1, recordFrequency);
+            sampleBuffer = new float[recordSampleSize];
+            fftBuffer = new float[VoiceChatUtils.ClosestPowerOfTwo(targetSampleSize)];
+            recording = true;
+
+            return recording;
         }
 
-        targetFrequency = VoiceChatSettings.Instance.Frequency;
-        targetSampleSize = VoiceChatSettings.Instance.SampleSize;
-
-        int minFreq;
-        int maxFreq;
-        Microphone.GetDeviceCaps(Device, out minFreq, out maxFreq);
-
-        recordFrequency = minFreq == 0 && maxFreq == 0 ? 44100 : maxFreq;
-        recordSampleSize = recordFrequency / (targetFrequency / targetSampleSize);
-
-        clip = Microphone.Start(Device, true, 1, recordFrequency);
-        sampleBuffer = new float[recordSampleSize];
-        fftBuffer = new float[VoiceChatUtils.ClosestPowerOfTwo(targetSampleSize)];
-        recording = true;
-
-        return recording;
-    }
-
-    public void StopRecording()
-    {
-        clip = null;
-        recording = false;
+        public void StopRecording()
+        {
+            clip = null;
+            recording = false;
+        }
     }
 }

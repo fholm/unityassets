@@ -1,13 +1,16 @@
 using UnityEngine;
 using System.Collections;
 
-public class VoiceChatServerUi : MonoBehaviour
+namespace VoiceChat.Demo
 {
-    void OnGUI()
+    public class VoiceChatServerUi : MonoBehaviour
     {
-        int w = Screen.width / 2;
-        int h = Screen.height / 2;
+        void OnGUI()
+        {
+            int w = Screen.width / 2;
+            int h = Screen.height / 2;
 
-        GUI.Label(new Rect(w - 50, h - 10, 100, 20), "Server Running");
-    }
+            GUI.Label(new Rect(w - 50, h - 10, 100, 20), "Server Running");
+        }
+    } 
 }
