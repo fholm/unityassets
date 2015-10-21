@@ -9,6 +9,7 @@ namespace VoiceChat
         public int Length;
         public byte[] Data;
         public int NetworkId;
+        public ulong PacketId;
     }
 
 }

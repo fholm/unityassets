@@ -7,7 +7,6 @@ namespace VoiceChat
     public class VoiceChatRecorder : MonoBehaviour
     {
         #region Instance
-
         static VoiceChatRecorder instance;
 
         public static VoiceChatRecorder Instance
@@ -23,8 +22,12 @@ namespace VoiceChat
             }
         }
 
+        public AudioClip audioClip { get { return clip; } }
+
         #endregion
 
+        public event Action StartedRecording;
+            
         [SerializeField]
         KeyCode toggleToTalkKey = KeyCode.O;
 
@@ -40,6 +43,7 @@ namespace VoiceChat
         [SerializeField]
         float forceTransmitTime = 2f;
 
+        ulong packetId;
         int previousPosition = 0;
         int sampleIndex = 0;
         string device = null;
@@ -149,12 +153,18 @@ namespace VoiceChat
 
         void OnDisable()
         {
-            instance = null;
+            if (instance == this)
+            {
+                instance = null;
+            }
         }
 
         void OnDestroy()
         {
-            instance = null;
+            if (instance == this)
+            {
+                instance = null;
+            }
         }
 
         void Update()
@@ -295,7 +305,7 @@ namespace VoiceChat
 
             // Set networkid of packet
             packet.NetworkId = NetworkId;
-
+            packet.PacketId = ++packetId;
             // Raise event
             NewSample(packet);
         }
@@ -329,6 +339,11 @@ namespace VoiceChat
             fftBuffer = new float[VoiceChatUtils.ClosestPowerOfTwo(targetSampleSize)];
             recording = true;
 
+            if (StartedRecording != null)
+            {
+                StartedRecording();
+            }
+
             return recording;
         }
 
@@ -336,6 +351,20 @@ namespace VoiceChat
         {
             clip = null;
             recording = false;
+        }
+
+        public void ToggleTransmit()
+        {
+            transmitToggled = !transmitToggled;
+        }
+
+        public void StartTransmit()
+        {
+            transmitToggled = true;
+        }
+        public void StopTransmit()
+        {
+            transmitToggled = false;
         }
     }
 }
