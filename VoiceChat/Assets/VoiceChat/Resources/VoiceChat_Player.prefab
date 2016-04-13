@@ -109,14 +109,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 59b1242259e779d4cb4fc25b48201e51, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playbackDelay: 2
+  playbackDelay: .100000001
+  packetBufferSize: 5
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
   serializedVersion: 2
   m_Modification:
     m_TransformParent: {fileID: 0}
-    m_Modifications: []
+    m_Modifications:
+    - target: {fileID: 0}
+      propertyPath: playbackDelay
+      value: .100000001
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: packetBufferSize
+      value: 5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 100000}
