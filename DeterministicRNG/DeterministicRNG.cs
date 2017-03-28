@@ -22,19 +22,14 @@ static class DeterministicRNG {
 
     Int32 r = 0;
 
-    if (_b.Length > _p) {
-      for (Int32 i = 0; i < _p; i++) {
-        int n = 1;
+    for (Int32 i = 0; i < _p; i++) {
+      int n = 1;
 
-        for (Int32 k = 0; k < _p - i - 1; k++) {
-          n *= 10;
-        }
-
-        r += _b[i + seed] * n;
+      for (Int32 k = 0; k < _p - i - 1; k++) {
+        n *= 10;
       }
-    }
-    else {
-      r = 0;
+
+      r += _b[i + seed] * n;
     }
 
     return r;
