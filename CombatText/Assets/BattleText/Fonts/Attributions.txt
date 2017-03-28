@@ -1,9 +1,0 @@
-﻿BattleText/Fonts/Definitions/Moderna
- - Author: http://www.ellak.gr/pub/fonts/mgopen/
-
-BattleText/Fonts/Definitions/Diavlo
- - Author: http://exljbris.com/diavlo.html
-
-BattleText/Fonts/Definitions/Lorena
- - Author: http://www.behance.net/gallery/Lorena-aFree-Font/2576379
-	
