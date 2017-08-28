@@ -3,15 +3,17 @@ using UnityEngine;
 
 [ExecuteInEditMode]
 public class AnimationEditorPose : MonoBehaviour {
-  public Animator Animator;
-  public AnimationClip Clip;
-  public Single Time;
+	public Animator Animator;
+	public AnimationClip Clip;
 
-  void Update() {
-    if (Application.isPlaying) {
-      Destroy(this);
-      return;
-    }
+	[Range(0, 1)]
+	public Single Time;
+
+	void Update() {
+		if (Application.isPlaying) {
+			Destroy(this);
+			return;
+		}
 
 #if UNITY_EDITOR
     if (Clip) {
@@ -28,10 +30,9 @@ public class AnimationEditorPose : MonoBehaviour {
         }
       }
 
-
-      Time = Mathf.Clamp(Time, 0, Clip.length);
-      Clip.SampleAnimation(Animator.gameObject, Time);
+      Time = Mathf.Clamp01(Time);
+      Clip.SampleAnimation(Animator.gameObject, Clip.length * Time);
     }
 #endif
-  }
+	}
 }
